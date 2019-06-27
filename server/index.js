@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 app.use("/", (req, res) => {
-  res.send("First initial commit");
+  res.send("Change for the Dev env");
 });
 
 const PORT = process.env.PORT || 5000;
