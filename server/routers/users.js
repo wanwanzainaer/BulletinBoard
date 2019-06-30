@@ -9,18 +9,17 @@ router.post("/signup", async (req, res) => {
   if (!email || !password) {
     return res.send("you must enter email or password");
   }
-  //   const saltRounds = await bcrpyt.genSalt(10);
 
+  // To-do change the coding style with the async await
   bcrpyt.genSalt(10, (err, salt) => {
-    console.log(password);
     bcrpyt.hash(password, salt, (err, hashedPassword) => {
-      console.log(hashedPassword);
       pgClinet
         .query("INSERT INTO users(email, password) values($1, $2)", [
           email,
           hashedPassword
         ])
         .then(() => {
+          // To-Do when the user save account then give user's profile with mongodb
           res.send("sucess");
         })
         .catch(error => {
@@ -28,12 +27,6 @@ router.post("/signup", async (req, res) => {
         });
     });
   });
-  //   const hashedPassword = await new Promise((resolve, reject) => {
-  //     bcrypt.hash(password, saltRounds, (err, hash) => {
-  //       if (err) reject(err);
-  //       resolve(hash);
-  //     });
-  //   });
 });
 
 module.exports = router;

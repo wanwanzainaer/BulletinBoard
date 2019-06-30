@@ -1,2 +1,4 @@
 /server/node_modules
+
+#Docker persistent data
 /postgres-data
