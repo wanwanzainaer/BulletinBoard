@@ -1,9 +1,16 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 
-app.use("/", (req, res) => {
-  res.send("Change for the Dev env");
-});
+const users = require("./routers/users");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// app.use("/", (req, res) => {
+//   res.send("Change for the Dev env");
+// });
+app.use("/api/users", users);
 
 const PORT = process.env.PORT || 5000;
 
