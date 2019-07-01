@@ -3,12 +3,13 @@ const router = express.Router();
 const bcrpyt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const pgClinet = require("../database/pgDatabase");
-
+const signupValidation = require("../validation/signupValidation");
 router.post("/signup", async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.send("you must enter email or password");
+  const { errors, isValid } = signupValidation(req.body);
+  if (!isValid) {
+    return res.send(errors);
   }
+  const { email, password } = req.body;
 
   // To-do change the coding style with the async await
   bcrpyt.genSalt(10, (err, salt) => {
