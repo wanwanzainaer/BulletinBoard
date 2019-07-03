@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrpyt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
+
 const pgClinet = require("../database/pgDatabase");
 const signupValidation = require("../validation/signupValidation");
 const UserProfile = require("../database/mongoSchema/UserProfile");
@@ -86,5 +88,17 @@ router.post("/login", async (req, res) => {
     res.status(400).json({ error: "Not found user profile" });
   }
 });
+
+// @route   Post api/users/test
+// @desc    Check JWT workign
+// @access  Private
+router.get(
+  "/test",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req.user);
+    res.send("test");
+  }
+);
 
 module.exports = router;
