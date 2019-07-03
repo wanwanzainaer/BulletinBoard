@@ -1,4 +1,5 @@
 /server/node_modules
+/server/config/secretKey.js
 
 #Docker persistent data Postgres and Mongo
 /postgres-data

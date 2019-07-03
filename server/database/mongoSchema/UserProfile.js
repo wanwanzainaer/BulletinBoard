@@ -8,15 +8,22 @@ const UserProfile = new Schema({
   },
   active: {
     type: Boolean,
+    default: false,
     required: true
   },
   //To-do list add Posts Schema
   posts: [String],
-  createdAt: { type: Date, required: true },
-  lastLoginAt: {
+  school: {
+    type: String,
+    required: true
+  },
+  createdAt: {
     type: Date,
     required: true
+  },
+  lastLoginAt: {
+    type: Date
   }
 });
 
-module.exports = mongoose.Model("userprofile", UserProfile);
+module.exports = mongoose.model("userprofile", UserProfile);

@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const passport = require("passport");
 const app = express();
 const keys = require("./config/keys");
 const users = require("./routers/users");
@@ -15,6 +15,9 @@ mongoose
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+
+require("./servers/passport")(passport);
 
 // app.use("/", (req, res) => {
 //   res.send("Change for the Dev env");
