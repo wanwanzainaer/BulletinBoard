@@ -17,8 +17,10 @@ router.post("/signup", async (req, res) => {
       "INSERT INTO users(email, password) values($1, $2)",
       [email, hashedPassword]
     );
+    //To-do send the  email confirm to active account
     res.send("sucess");
   } catch (error) {
+    // To-do Add error which can show on the react
     res.send(error);
   }
 });
