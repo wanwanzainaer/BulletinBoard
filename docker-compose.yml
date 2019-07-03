@@ -15,7 +15,14 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+      - MONGOPORT=27017
   postgres:
     image: "postgres:latest"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+  mongo:
+    image: "mongo:latest"
+    volumes:
+      - ./mongo-data:/data/db
+    ports:
+      - "27017:27017"

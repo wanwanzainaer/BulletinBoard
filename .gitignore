@@ -1,4 +1,5 @@
 /server/node_modules
 
-#Docker persistent data
+#Docker persistent data Postgres and Mongo
 /postgres-data
+/mongo-data

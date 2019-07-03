@@ -1,8 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
+const mongoose = require("mongoose");
 
+const app = express();
+const keys = require("./config/keys");
 const users = require("./routers/users");
+
+mongoose
+  .connect(`mongodb://mongo:${keys.mongoPort}/bulletinboard`, {
+    useNewUrlParser: true
+  })
+  .then(() => console.log("connect"))
+  .catch(error => console.log(error));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
