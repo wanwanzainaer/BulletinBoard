@@ -6,6 +6,7 @@ const passport = require("passport");
 
 const pgClinet = require("../database/pgDatabase");
 const signupValidation = require("../validation/signupValidation");
+const loginValidation = require("../validation/loginValidation");
 const UserProfile = require("../database/mongoSchema/UserProfile");
 const key = require("../config/secretKey").jwtSecretKey;
 
@@ -43,7 +44,7 @@ router.post("/signup", async (req, res) => {
 // @desc    User Login
 // @access  Public
 router.post("/login", async (req, res) => {
-  const { errors, isValid } = signupValidation(req.body);
+  const { errors, isValid } = loginValidation(req.body);
   if (!isValid) {
     return res.send(errors);
   }
@@ -78,11 +79,10 @@ router.post("/login", async (req, res) => {
       id: userProfile.id,
       email
     };
-    jwt.sign(payload, key, { expiresIn: 360000 }, (err, token) => {
-      res.json({
-        success: true,
-        token: `Bearer ${token}`
-      });
+    const token = await jwt.sign(payload, key, { expiresIn: 360000 });
+    res.json({
+      success: true,
+      token: `Bearer ${token}`
     });
   } catch (e) {
     res.status(400).json({ error: "Not found user profile" });

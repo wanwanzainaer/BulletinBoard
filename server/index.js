@@ -20,9 +20,6 @@ app.use(passport.initialize());
 
 require("./servers/passport")(passport);
 
-// app.use("/", (req, res) => {
-//   res.send("Change for the Dev env");
-// });
 app.use("/api/users", users);
 
 const PORT = process.env.PORT || 5000;
