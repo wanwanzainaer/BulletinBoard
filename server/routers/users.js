@@ -26,12 +26,13 @@ router.post("/signup", async (req, res) => {
       "INSERT INTO users(email, password) values($1, $2)",
       [email, hashedPassword]
     );
-    const userprofile = await new UserProfile({
+    // To-do in furture will open more scholl user match the email
+    await new UserProfile({
       school: "Cal Lutheran",
       createdAt: Date.now(),
       email
     }).save();
-    console.log(userprofile);
+
     //To-do send the  email confirm to active account
     res.send("sucess");
   } catch (error) {
