@@ -17,8 +17,12 @@ const UserProfile = new Schema({
     type: String,
     required: true
   },
+  major: {
+    type: String
+  },
   createdAt: {
     type: Date,
+    default: Date.now,
     required: true
   },
   lastLoginAt: {

@@ -29,7 +29,6 @@ router.post("/signup", async (req, res) => {
     // To-do in furture will open more scholl user match the email
     await new UserProfile({
       school: "Cal Lutheran",
-      createdAt: Date.now(),
       email
     }).save();
 
@@ -76,6 +75,7 @@ router.post("/login", async (req, res) => {
   // Try get the User's profile and send the token back
   try {
     const userProfile = await UserProfile.findOne({ email });
+    console.log(userProfile);
     const payload = {
       id: userProfile.id,
       email
