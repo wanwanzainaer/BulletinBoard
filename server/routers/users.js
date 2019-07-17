@@ -27,10 +27,10 @@ router.post("/signup", async (req, res) => {
       [email, hashedPassword]
     );
     // To-do in furture will open more scholl user match the email
-    await new UserProfile({
-      school: "Cal Lutheran",
-      email
-    }).save();
+    // await new UserProfile({
+    //   school: "Cal Lutheran",
+    //   email
+    // }).save();
 
     //To-do send the  email confirm to active account
     res.send("sucess");
@@ -75,7 +75,11 @@ router.post("/login", async (req, res) => {
   // Try get the User's profile and send the token back
   try {
     const userProfile = await UserProfile.findOne({ email });
-    console.log(userProfile);
+    if (!userProfile) {
+      errors.userProfile = "Not found user profile";
+      return res.status(400).json(errors);
+    }
+    //test console
     const payload = {
       id: userProfile.id,
       email
@@ -86,7 +90,7 @@ router.post("/login", async (req, res) => {
       token: `Bearer ${token}`
     });
   } catch (e) {
-    res.status(400).json({ error: "Not found user profile" });
+    console.log(e);
   }
 });
 
