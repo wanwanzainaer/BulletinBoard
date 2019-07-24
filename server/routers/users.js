@@ -27,10 +27,10 @@ router.post("/signup", async (req, res) => {
       [email, hashedPassword]
     );
     // To-do in furture will open more scholl user match the email
-    // await new UserProfile({
-    //   school: "Cal Lutheran",
-    //   email
-    // }).save();
+    await new UserProfile({
+      school: "Cal Lutheran",
+      email
+    }).save();
 
     //To-do send the  email confirm to active account
     res.send("sucess");
