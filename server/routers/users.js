@@ -80,6 +80,7 @@ router.post("/login", async (req, res) => {
       errors.userProfile = "Not found user profile";
       return res.status(400).json(errors);
     }
+    console.log(userProfile.id);
     //test console
     const payload = {
       id: userProfile.id,
