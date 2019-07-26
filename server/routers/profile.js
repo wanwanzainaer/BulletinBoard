@@ -14,8 +14,8 @@ router.get("/:id", async (req, res) => {
     if (!userProfile) {
       return res.json({ errors: "do not have user" });
     }
-    const { email, type, school, major } = userProfile;
-    return res.json({ email, type, school, major });
+    const { type, school, major } = userProfile;
+    return res.json({ type, school, major });
   } catch (e) {
     console.log(e);
   }
