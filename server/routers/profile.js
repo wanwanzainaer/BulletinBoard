@@ -14,7 +14,6 @@ router.get("/:id", async (req, res) => {
     if (!userProfile) {
       return res.json({ errors: "do not have user" });
     }
-    console.log(userProfile);
     const { email, type, school, major } = userProfile;
     return res.json({ email, type, school, major });
   } catch (e) {
@@ -32,8 +31,8 @@ router.post(
     } catch (e) {
       console.log(e);
     }
-    // change code.
-    return res.json({ sucess: "sucess" });
+    //TO-DO change success response
+    return res.json({ success: "success" });
   }
 );
 
