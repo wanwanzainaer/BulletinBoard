@@ -25,17 +25,17 @@ const Post = new Schema({
   price: {
     type: Number
   },
-  location: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      required: true
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  },
+  //   location: {
+  //     type: {
+  //       type: String,
+  //       enum: ["Point"],
+  //       required: true
+  //     },
+  //     coordinates: {
+  //       type: [Number],
+  //       required: true
+  //     }
+  //   },
   createAt: {
     type: Date,
     default: Date.now

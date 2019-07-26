@@ -9,10 +9,11 @@ const signupValidation = require("../validation/signupValidation");
 const loginValidation = require("../validation/loginValidation");
 const UserProfile = require("../database/mongoSchema/UserProfile");
 const key = require("../config/secretKey").jwtSecretKey;
-
+/** 
 // @route   Post api/users/signup
 // @desc    Register user
 // @access  Public
+*/
 router.post("/signup", async (req, res) => {
   const { errors, isValid } = signupValidation(req.body);
   if (!isValid) {
@@ -40,10 +41,11 @@ router.post("/signup", async (req, res) => {
     res.send(error);
   }
 });
-
+/** 
 // @route   Post api/users/login
 // @desc    User Login
 // @access  Public
+*/
 router.post("/login", async (req, res) => {
   const { errors, isValid } = loginValidation(req.body);
   if (!isValid) {
@@ -95,10 +97,11 @@ router.post("/login", async (req, res) => {
     console.log(e);
   }
 });
-
+/** 
 // @route   Post api/users/test
 // @desc    Check JWT workign
 // @access  Private
+*/
 router.get(
   "/test",
   passport.authenticate("jwt", { session: false }),
