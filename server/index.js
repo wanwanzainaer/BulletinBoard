@@ -5,8 +5,9 @@ const passport = require("passport");
 
 const app = express();
 const keys = require("./config/keys");
-const users = require("./routers/users");
-const profile = require("./routers/profile");
+const usersRouter = require("./routers/users");
+const profileRouter = require("./routers/profile");
+const postsRouter = require("./routers/posts");
 
 mongoose
   .connect(`mongodb://mongo:${keys.mongoPort}/bulletinboard`, {
@@ -21,8 +22,9 @@ app.use(passport.initialize());
 
 require("./servers/passport")(passport);
 
-app.use("/api/users", users);
-app.use("/api/profile", profile);
+app.use("/api/users", usersRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/posts/", postsRouter);
 
 const PORT = process.env.PORT || 5000;
 
