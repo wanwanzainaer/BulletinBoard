@@ -29,6 +29,7 @@ router.post("/signup", async (req, res) => {
     // To-do in furture will open more scholl user match the email
     await new UserProfile({
       school: "Cal Lutheran",
+      type: "Studnet",
       email
     }).save();
 

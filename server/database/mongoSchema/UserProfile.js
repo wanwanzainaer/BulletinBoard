@@ -12,7 +12,10 @@ const UserProfile = new Schema({
     required: true
   },
   //To-do list add Posts Schema
-  posts: [String],
+  posts: [{ tpye: Schema.Types.ObjectId, ref: "post" }],
+
+  //Teacher or edu or other?
+  type: { type: String },
   school: {
     type: String,
     required: true
