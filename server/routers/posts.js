@@ -7,7 +7,7 @@ const createPostValidation = require("../validation/createPostValidation");
 
 router.get("/", async (req, res) => {
   //To-do list add criteria for search
-  const posts = await searchPosts();
+  const posts = await searchPosts(req.query);
   return res.json(posts);
 });
 
