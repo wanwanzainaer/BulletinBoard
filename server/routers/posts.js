@@ -32,7 +32,7 @@ router.post(
     } catch (e) {
       console.log(e);
     }
-    return res.json({ error: "some thing errors " });
+    return res.json({ errors: "some thing errors " });
   }
 );
 
