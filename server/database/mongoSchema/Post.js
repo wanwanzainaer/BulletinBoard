@@ -41,4 +41,7 @@ const Post = new Schema({
     default: Date.now
   }
 });
+
+Post.index({ name: "text", title: "text" });
+
 module.exports = mongoose.model("post", Post);

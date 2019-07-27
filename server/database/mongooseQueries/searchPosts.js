@@ -16,6 +16,7 @@ module.exports = async criteria => {
 
 const buildQuery = criteria => {
   const query = {};
+  if (criteria.name) query.$text = { $search: criteria.name };
   if (criteria.pirceMin) query.price = { $gte: criteria.pirceMin };
   if (criteria.priceMax)
     query.price = !query.price
