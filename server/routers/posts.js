@@ -3,6 +3,8 @@ const passport = require("passport");
 const Post = require("../database/mongoSchema/Post");
 const searchPosts = require("../database/mongooseQueries/searchPosts");
 
+const createPostValidation = require("../validation/createPostValidation");
+
 router.get("/", async (req, res) => {
   //To-do list add criteria for search
   const posts = await searchPosts();
@@ -13,10 +15,11 @@ router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    const { errors, isValid } = createPostValidation(req.body);
+    if (!isValid) {
+      return res.json(errors);
+    }
     const { type, title, content, price } = req.body;
-    // const price = parseFloat(req.body.price);
-    console.log(typeof price);
-    console.log(typeof req.user.id);
     try {
       await new Post({
         type,
