@@ -1,18 +1,17 @@
 const router = require("express").Router();
 const passport = require("passport");
 const ObjectId = require("mongoose").Types.ObjectId;
+const objectIdValid = require("../validation/objectIdValidation");
 const UserProfile = require("../database/mongoSchema/UserProfile");
 
 router.get("/:id", async (req, res) => {
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.json({ error: "ID is not valid" });
-  }
+  const { isValid, mongoId, error } = objectIdValid(req.params.id);
+  if (!isValid) return res.status(400).json({ errors: error });
+
   try {
-    const userProfile = await UserProfile.findById(
-      ObjectId(req.params.id)
-    );
+    const userProfile = await UserProfile.findById(mongoId);
     if (!userProfile) {
-      return res.json({ errors: "do not have user" });
+      return res.status(404).json({ errors: "do not have user" });
     }
     const { type, school, major } = userProfile;
     return res.json({ type, school, major });

@@ -1,14 +1,27 @@
 const router = require("express").Router();
 const passport = require("passport");
 const Post = require("../database/mongoSchema/Post");
-const searchPosts = require("../database/mongooseQueries/searchPosts");
 
+const searchPosts = require("../database/mongooseQueries/searchPosts");
+const getPost = require("../database/mongooseQueries/getPost");
+const createPost = require("../database/mongooseQueries/createPost");
+
+const objectIdValid = require("../validation/objectIdValidation");
 const createPostValidation = require("../validation/createPostValidation");
 
 router.get("/", async (req, res) => {
   //To-do list add criteria for search
   const posts = await searchPosts(req.query);
   return res.json(posts);
+});
+
+router.get("/:id", async (req, res) => {
+  const { isValid, mongoId, error } = objectIdValid(req.params.id);
+  if (!isValid) return res.status(400).json({ errors: error });
+  const post = await getPost(mongoId);
+  if (!post)
+    return res.status(404).json({ errors: "not found user" });
+  return res.json(post);
 });
 
 router.post(
@@ -19,20 +32,9 @@ router.post(
     if (!isValid) {
       return res.json(errors);
     }
-    const { type, title, content, price } = req.body;
-    try {
-      await new Post({
-        type,
-        title,
-        price,
-        content,
-        user: req.user.id
-      }).save();
-      return res.json({ success: "success" });
-    } catch (e) {
-      console.log(e);
-    }
-    return res.json({ errors: "some thing errors " });
+    const error = await createPost(req);
+    if (error) return res.json(error);
+    return res.json({ success: "success" });
   }
 );
 
