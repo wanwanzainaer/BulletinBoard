@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const passport = require("passport");
-const Post = require("../database/mongoSchema/Post");
 
 const searchPosts = require("../database/mongooseQueries/searchPosts");
 const getPost = require("../database/mongooseQueries/getPost");
