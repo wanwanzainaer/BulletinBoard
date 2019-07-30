@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
   if (!isValid) return res.status(400).json({ errors: error });
   const post = await getPost(mongoId);
   if (!post)
-    return res.status(404).json({ errors: "not found user" });
+    return res.status(404).json({ errors: "not found post" });
   return res.json(post);
 });
 
