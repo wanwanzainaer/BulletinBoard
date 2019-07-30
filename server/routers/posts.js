@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 
+const deletePost = require("../database/mongooseQueries/deletePost");
 const searchPosts = require("../database/mongooseQueries/searchPosts");
 const getPost = require("../database/mongooseQueries/getPost");
 const createPost = require("../database/mongooseQueries/createPost");
@@ -33,6 +34,18 @@ router.post(
     }
     const error = await createPost(req);
     if (error) return res.json(error);
+    return res.json({ success: "success" });
+  }
+);
+
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { isValid, mongoId, error } = objectIdValid(req.params.id);
+    if (!isValid) return res.status(400).json({ errors: error });
+    const someError = await deletePost(req, mongoId);
+    if (someError) return res.json(someError);
     return res.json({ success: "success" });
   }
 );

@@ -4,6 +4,7 @@ module.exports = async criteria => {
   //Add criteria to search posts
   try {
     posts = await Post.find(buildQuery(criteria))
+      .populate("user", ["major", "school"])
       .sort({ createAt: -1 })
       .skip(0)
       .limit(3);
