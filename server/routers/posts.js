@@ -7,6 +7,8 @@ const getPost = require("../database/mongooseQueries/posts/getPost");
 const createPost = require("../database/mongooseQueries/posts/createPost");
 const editPost = require("../database/mongooseQueries/posts/editPost");
 
+const createComment = require("../database/mongooseQueries/posts/createComment");
+
 const objectIdValid = require("../validation/objectIdValidation");
 const createPostValidation = require("../validation/createPostValidation");
 
@@ -60,7 +62,21 @@ router.delete(
     const { isValid, mongoId, error } = objectIdValid(req.params.id);
     if (!isValid) return res.status(400).json({ errors: error });
     const someError = await deletePost(req, mongoId);
-    if (someError) return res.json(someError);
+    if (someError) return res.json({ errors: someError });
+    return res.json({ success: "success" });
+  }
+);
+
+router.post(
+  "/comments/:postId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { isValid, mongoId, error } = objectIdValid(
+      req.params.postId
+    );
+    if (!isValid) return res.status(400).json({ errors: error });
+    const someError = await createComment(req, mongoId);
+    if (someError) return res.json({ errors: someError });
     return res.json({ success: "success" });
   }
 );

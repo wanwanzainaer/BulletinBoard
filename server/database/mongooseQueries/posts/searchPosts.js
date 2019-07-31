@@ -5,6 +5,10 @@ module.exports = async criteria => {
   try {
     posts = await Post.find(buildQuery(criteria))
       .populate("user", ["major", "school"])
+      .populate({
+        path: "comments",
+        populate: { path: "user", select: ["major", "school"] }
+      })
       .sort({ createAt: -1 })
       .skip(0)
       .limit(3);
