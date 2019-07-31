@@ -5,6 +5,7 @@ const deletePost = require("../database/mongooseQueries/posts/deletePost");
 const searchPosts = require("../database/mongooseQueries/posts/searchPosts");
 const getPost = require("../database/mongooseQueries/posts/getPost");
 const createPost = require("../database/mongooseQueries/posts/createPost");
+const editPost = require("../database/mongooseQueries/posts/editPost");
 
 const objectIdValid = require("../validation/objectIdValidation");
 const createPostValidation = require("../validation/createPostValidation");
@@ -34,6 +35,20 @@ router.post(
     }
     const error = await createPost(req);
     if (error) return res.json(error);
+    return res.json({ success: "success" });
+  }
+);
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const { errors, isValid } = createPostValidation(req.body);
+    if (!isValid) return res.json(errors);
+    const mongoObjectId = objectIdValid(req.params.id);
+    if (!mongoObjectId.isValid)
+      return res.status(400).json({ errors: mongoObjectId.error });
+    const someError = await editPost(req, mongoObjectId.mongoId);
+    if (someError) return res.json(someError);
     return res.json({ success: "success" });
   }
 );
