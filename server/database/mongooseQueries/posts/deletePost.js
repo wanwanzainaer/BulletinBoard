@@ -1,4 +1,4 @@
-const Post = require("../mongoSchema/Post");
+const Post = require("../../mongoSchema/Post");
 
 module.exports = async (req, id) => {
   try {

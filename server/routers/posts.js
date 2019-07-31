@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const passport = require("passport");
 
-const deletePost = require("../database/mongooseQueries/deletePost");
-const searchPosts = require("../database/mongooseQueries/searchPosts");
-const getPost = require("../database/mongooseQueries/getPost");
-const createPost = require("../database/mongooseQueries/createPost");
+const deletePost = require("../database/mongooseQueries/posts/deletePost");
+const searchPosts = require("../database/mongooseQueries/posts/searchPosts");
+const getPost = require("../database/mongooseQueries/posts/getPost");
+const createPost = require("../database/mongooseQueries/posts/createPost");
 
 const objectIdValid = require("../validation/objectIdValidation");
 const createPostValidation = require("../validation/createPostValidation");
