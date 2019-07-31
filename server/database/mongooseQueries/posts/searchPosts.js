@@ -23,6 +23,7 @@ const buildQuery = criteria => {
   const query = {};
   if (criteria.name) query.$text = { $search: criteria.name };
   if (criteria.pirceMin) query.price = { $gte: criteria.pirceMin };
+  if (criteria.type) query.type = criteria.type;
   if (criteria.priceMax)
     query.price = !query.price
       ? { $lte: criteria.priceMax }
