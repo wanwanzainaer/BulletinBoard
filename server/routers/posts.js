@@ -6,6 +6,7 @@ const searchPosts = require("../database/mongooseQueries/posts/searchPosts");
 const getPost = require("../database/mongooseQueries/posts/getPost");
 const createPost = require("../database/mongooseQueries/posts/createPost");
 const editPost = require("../database/mongooseQueries/posts/editPost");
+const deleteComment = require("../database/mongooseQueries/posts/deleteComment");
 
 const createComment = require("../database/mongooseQueries/posts/createComment");
 
@@ -76,6 +77,29 @@ router.post(
     );
     if (!isValid) return res.status(400).json({ errors: error });
     const someError = await createComment(req, mongoId);
+    if (someError) return res.json({ errors: someError });
+    return res.json({ success: "success" });
+  }
+);
+
+router.delete(
+  "/comments/:postId/:commentId",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const postIdchecked = objectIdValid(req.params.postId);
+    const commentIdchecked = objectIdValid(req.params.commentId);
+    if (!postIdchecked.isValid && !commentIdchecked.isValid)
+      return res.json({
+        errors: postIdchecked.error
+          ? postIdchecked.error
+          : commentIdchecked.error
+      });
+    const someError = await deleteComment(
+      req,
+      postIdchecked.mongoId,
+      commentIdchecked.mongoId
+    );
+
     if (someError) return res.json({ errors: someError });
     return res.json({ success: "success" });
   }
