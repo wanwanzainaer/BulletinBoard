@@ -45,4 +45,8 @@ const Post = new Schema({
 
 Post.index({ name: "text", title: "text" });
 
+Post.virtual("commentCount", function(next) {
+  return this.comments.length;
+});
+
 module.exports = mongoose.model("post", Post);
