@@ -83,23 +83,14 @@ router.post(
 );
 
 router.delete(
-  "/comments/:postId/:commentId",
+  "/comments/:commentId",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const postIdchecked = objectIdValid(req.params.postId);
-    const commentIdchecked = objectIdValid(req.params.commentId);
-    if (!postIdchecked.isValid && !commentIdchecked.isValid)
-      return res.json({
-        errors: postIdchecked.error
-          ? postIdchecked.error
-          : commentIdchecked.error
-      });
-    const someError = await deleteComment(
-      req,
-      postIdchecked.mongoId,
-      commentIdchecked.mongoId
+    const { isValid, mongoId, error } = objectIdValid(
+      req.params.commentId
     );
-
+    if (!isValid) return res.json({ errors: error });
+    const someError = await deleteComment(req, mongoId);
     if (someError) return res.json({ errors: someError });
     return res.json({ success: "success" });
   }

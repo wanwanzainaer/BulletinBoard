@@ -1,7 +1,7 @@
 const Post = require("../../mongoSchema/Post");
 const Comment = require("../../mongoSchema/Comment");
 
-module.exports = async (req, postId, commentId) => {
+module.exports = async (req, commentId) => {
   try {
     const comment = await Comment.findById(commentId);
 
