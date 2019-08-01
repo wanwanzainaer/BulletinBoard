@@ -7,6 +7,7 @@ const getPost = require("../database/mongooseQueries/posts/getPost");
 const createPost = require("../database/mongooseQueries/posts/createPost");
 const editPost = require("../database/mongooseQueries/posts/editPost");
 const deleteComment = require("../database/mongooseQueries/posts/deleteComment");
+const getComments = require("../database/mongooseQueries/posts/getComments");
 
 const createComment = require("../database/mongooseQueries/posts/createComment");
 
@@ -81,6 +82,16 @@ router.post(
     return res.json({ success: "success" });
   }
 );
+
+router.get("/comments/:postId", async (req, res) => {
+  const { isValid, mongoId, error } = objectIdValid(
+    req.params.postId
+  );
+  if (!isValid) return res.json({ errors: error });
+  const { comments, someError } = await getComments(mongoId);
+  if (someError) return res.json({ errors: someError });
+  return res.json(comments);
+});
 
 router.delete(
   "/comments/:commentId",
