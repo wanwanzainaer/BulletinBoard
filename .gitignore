@@ -4,3 +4,5 @@
 #Docker persistent data Postgres and Mongo
 /postgres-data
 /mongo-data
+
+/client/node_modules
