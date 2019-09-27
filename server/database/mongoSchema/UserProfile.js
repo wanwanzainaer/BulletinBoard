@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const UserProfile = new Schema({
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   active: {
     type: Boolean,

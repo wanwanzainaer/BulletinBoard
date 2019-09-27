@@ -14,7 +14,7 @@ pgClient.on("error", () => console.log("Lost PG connection"));
 // pgClient.query("DROP TABLE users");
 pgClient
   .query(
-    "CREATE TABLE IF NOT EXISTS users(email VARCHAR(320) NOT NULL UNIQUE, password CHAR(60) NOT NULL)"
+    "CREATE TABLE IF NOT EXISTS users(email VARCHAR(320) NOT NULL UNIQUE, password VARCHAR(60) NOT NULL)"
   )
   .catch(err => console.log(err));
 
