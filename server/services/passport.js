@@ -3,9 +3,10 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 const UserProfile = require("../database/mongoSchema/UserProfile");
 const key = require("../config/secretKey").jwtSecretKey;
-const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = key;
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: key
+};
 
 module.exports = passport => {
   passport.use(
