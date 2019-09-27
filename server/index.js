@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
-require("./servers/passport")(passport);
+require("./services/passport")(passport);
 
 app.use("/api/users", usersRouter);
 app.use("/api/profile", profileRouter);
