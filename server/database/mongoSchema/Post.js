@@ -26,6 +26,7 @@ const Post = new Schema({
     type: Number
   },
   comments: [{ type: Schema.Types.ObjectId, ref: "comment" }],
+  // Location Type
   //   location: {
   //     type: {
   //       type: String,
